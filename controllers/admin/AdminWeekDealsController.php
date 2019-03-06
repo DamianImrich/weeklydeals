@@ -106,7 +106,6 @@ class AdminWeekDealsController extends ModuleAdminController
 
     public function renderForm()
     {
-        die(WeeklyDeal::$definition["table"]);
 
         $this->fields_form = array(
             'legend' => array(
@@ -193,17 +192,6 @@ class AdminWeekDealsController extends ModuleAdminController
         $object->position = WeeklyDeal::getNextAvailablePosition();
         return true;
     }
-
-  /*  public function processSave()
-    {
-        $exp = explode(",", $_POST["product_ids"]);
-        $ids = [];
-        foreach($exp as $id){
-            $ids[] = trim($id);
-        }
-        $_POST["product_ids"] = json_encode($ids);
-        return $this->processSave();
-    }*/
 
     public function ajaxProcessUpdatePositions()
     {

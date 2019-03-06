@@ -86,7 +86,11 @@ class WeeklyDeal extends ObjectModel
 
     public function activate()
     {
-        $productIds = json_decode($this->product_ids);
+        $exp = explode(",", $this->product_ids);
+        $productIds = [];
+        foreach($exp as $id){
+            $productIds[] = trim($id);
+        }
         $shopID = Context::getContext()->shop->id;
         $reduction = $this->discount/100;
 
@@ -143,7 +147,12 @@ class WeeklyDeal extends ObjectModel
 
     public function getProducts()
     {
-        if(!$res = Db::getInstance()->executeS('SELECT * FROM '._DB_PREFIX_ .'product WHERE id_product IN ('.implode(",", $this->product_ids).")"))
+        $exp = explode(",", $this->product_ids);
+        $productIds = [];
+        foreach($exp as $id){
+            $productIds[] = trim($id);
+        }
+        if(!$res = Db::getInstance()->executeS('SELECT * FROM '._DB_PREFIX_ .'product WHERE id_product IN ('.implode(",", $productIds).")"))
             return false;
 
         return (isset($res)) ? $res : null;
