@@ -38,6 +38,7 @@ class WeeklyDeals extends Module
         ];
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall weekly deals module?');
+        //$this->installDB();
 
         if(false){
             foreach($this->hooks as $hook){
@@ -60,7 +61,7 @@ class WeeklyDeals extends Module
                 return false;
         }
 
-        $this->addTabs();
+        $this->addTab();
         $this->installDB();
         Configuration::set("WeeklyDLS_INSTALLED", true);
 
@@ -85,7 +86,7 @@ class WeeklyDeals extends Module
             `product_ids` VARCHAR(255) NOT NULL,
             `specific_price_ids` VARCHAR(255) DEFAULT NULL,
             `discount` int(11) NOT NULL,
-			PRIMARY KEY (`id_dd_subscriber`)
+			PRIMARY KEY (`id_weekly_deal`)
 		) DEFAULT CHARSET=utf8;');
 
         return $a && $b;
@@ -101,27 +102,21 @@ class WeeklyDeals extends Module
         return true;
     }
 
-    protected function addTabs()
+    protected function addTab()
     {
-        $parent = version_compare(_PS_VERSION_, '1.7.0', '<') ? 0 : (int)Tab::getIdFromClassName('DEFAULT');
-        $tabs = [
-            $this->l('Weekly Deals') => array('class' => 'AdminWeekDeals', 'active' => 1)
-        ];
-        foreach ($tabs as $name => $t) {
-            $tab = new Tab();
-            $tab->active = $t['active'];
-            $tab->class_name = $t['class'];
-            $tab->name = array();
-            foreach (Language::getLanguages(true) as $lang) {
-                $tab->name[$lang['id_lang']] = isset($this->lang[$lang['iso_code']]) ? $this->lang[$lang['iso_code']][$name] : $name;
-            }
-            if (isset($t['icon'])) {
-                $tab->icon = $t['icon'];
-            }
-            $tab->module = $this->name;
-            $tab->id_parent = $parent;
-            $tab->add();
+        $name = "Weekly deals";
+
+        $tab = new Tab();
+        $tab->active = 1;
+        $tab->class_name = "AdminWeekDeals";
+        $tab->name = array();
+        foreach (Language::getLanguages(true) as $lang) {
+            $tab->name[$lang['id_lang']] = isset($this->lang[$lang['iso_code']]) ? $this->lang[$lang['iso_code']][$name] : $name;
         }
+        $tab->module = $this->name;
+        $tab->id_parent = (int)Tab::getIdFromClassName('DEFAULT');
+        $tab->add();
+
     }
     public function hookDisplayHeader($params)
     {
