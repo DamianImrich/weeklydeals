@@ -13,7 +13,7 @@ class AdminWeekDealsController extends ModuleAdminController
 {
     public function __construct()
     {
-
+        die(WeeklyDeal::$definition["table"]);
         $this->bootstrap = true;
         $this->table = WeeklyDeal::$definition["table"];
         $this->className = WeeklyDeal::class;
