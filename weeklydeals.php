@@ -105,7 +105,7 @@ class WeeklyDeals extends Module
     {
         $parent = version_compare(_PS_VERSION_, '1.7.0', '<') ? 0 : (int)Tab::getIdFromClassName('DEFAULT');
         $tabs = [
-            $this->l('Weekly Deals') => array('class' => 'WeeklyDeals', 'active' => 1)
+            $this->l('Weekly Deals') => array('class' => 'AdminWeekDeals', 'active' => 1)
         ];
         foreach ($tabs as $name => $t) {
             $tab = new Tab();
