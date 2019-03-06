@@ -3,18 +3,18 @@
         <h1 class="page-main-title text-center text-white mb-0">{l s='Products of the week' mod='weeklydeals'}</h1>
         <p class="subTitle">{l s='Get new cheap deal every day ' mod='weeklydeals'}</p>
 
-        {foreach from=$products item=product}
-        <div class="productWrapper js-anchor" data-anchor="{$product.url}">
-            <div class="product-title" itemprop="name"><a href="{$product.url}">{$product.name|truncate:30:'...'}</a>
+        {foreach from=$products item=prdct}
+        <div class="productWrapper js-anchor" data-anchor="{$prdct.url}">
+            <div class="product-title" itemprop="name"><a href="{$prdct.url}">{$prdct.name|truncate:30:'...'}</a>
             </div>
             <div class="product-group-price">
                 {block name='product_price_and_shipping'}
-                    {if $product.show_price}
+                    {if $prdct.show_price}
                         <div class="product-price-and-shipping">
 
                             <div class="currentPriceWrapper">
                                 <div
-                                        class="product-price {if $product.has_discount}has-discount{/if}"
+                                        class="product-price {if $prdct.has_discount}has-discount{/if}"
                                         itemprop="offers"
                                         itemscope
                                         itemtype="https://schema.org/Offer"
@@ -24,12 +24,12 @@
 
                                     <div class="current-price">
                                         {hook h='displayProductPriceBlock' product=$product type="before_price"}
-                                        <span itemprop="price" class="price">{$product.price}</span>
+                                        <span itemprop="price" class="price">{$prdct.price}</span>
                                     </div>
                                 </div>
                                 <div class="tax-shipping-delivery-label">
                                     {if $configuration.display_taxes_label}
-                                        {$product.labels.tax_long}
+                                        {$prdct.labels.tax_long}
                                     {/if}
                                     {hook h='displayProductPriceBlock' product=$product type="price"}
                                     {hook h='displayProductPriceBlock' product=$product type="after_price"}
@@ -38,20 +38,20 @@
 
 
                             <div class="discountWrapper">
-                                {if $product.has_discount}
-                                    {if $product.discount_type === 'percentage'}
-                                        <span class="discount discount-percentage">- {$product.discount_percentage_absolute}</span>
+                                {if $prdct.has_discount}
+                                    {if $prdct.discount_type === 'percentage'}
+                                        <span class="discount discount-percentage">- {$prdct.discount_percentage_absolute}</span>
                                     {else}
                                         <span class="discount discount-amount">
-                                          - {$product.discount_to_display}
+                                          - {$prdct.discount_to_display}
                                         </span>
                                     {/if}
                                 {/if}
                                 {block name='product_discount'}
-                                    {if $product.has_discount}
+                                    {if $prdct.has_discount}
                                         <div class="product-discount">
                                             {hook h='displayProductPriceBlock' product=$product type="old_price"}
-                                            <span class="regular-price">{$product.regular_price}</span>
+                                            <span class="regular-price">{$prdct.regular_price}</span>
 
                                         </div>
                                     {/if}
@@ -62,14 +62,14 @@
                 {/block}
             </div>
             <div class="thumbnail-container">
-                <a href="{$product.url}" class="thumbnail product-thumbnail">
+                <a href="{$prdct.url}" class="thumbnail product-thumbnail">
                     <img
                             class="img-fluid image-cover"
-                            src="{$product.cover.bySize.home_default.url}"
-                            alt="{$product.cover.legend}"
-                            data-full-size-image-url="{$product.cover.large.url}"
-                            width="{$product.cover.bySize.home_default.width}"
-                            height="{$product.cover.bySize.home_default.height}"
+                            src="{$prdct.cover.bySize.home_default.url}"
+                            alt="{$prdct.cover.legend}"
+                            data-full-size-image-url="{$prdct.cover.large.url}"
+                            width="{$prdct.cover.bySize.home_default.width}"
+                            height="{$prdct.cover.bySize.home_default.height}"
                     >
                 </a>
             </div>
@@ -79,9 +79,9 @@
         {*{block name='product_buy'}
             <form action="{$urls.pages.cart}" method="post" id="add-to-cart-or-refresh">
                 <input type="hidden" name="token" value="{$static_token}">
-                <input type="hidden" name="id_product" value="{$product.id}" id="product_page_product_id">
-                {if isset($product.id_customization)}
-                    <input type="hidden" name="id_customization" value="{$product.id_customization}"
+                <input type="hidden" name="id_product" value="{$prdct.id}" id="product_page_product_id">
+                {if isset($prdct.id_customization)}
+                    <input type="hidden" name="id_customization" value="{$prdct.id_customization}"
                            id="product_customization_id">
                 {/if}
 
@@ -95,7 +95,7 @@
                                 <div class="add">
                                     <button class="btn btn-secondary add-to-cart" data-button-action="add-to-cart"
                                             type="submit"
-                                            {if !$product.add_to_cart_url || $product.quantity_wanted > $product.quantity}disabled{/if}>
+                                            {if !$prdct.add_to_cart_url || $prdct.quantity_wanted > $prdct.quantity}disabled{/if}>
                                         <span>{l s='Add to cart' d='Shop.Theme.Actions'}</span>
                                         <i class="icon-boozer_kosik"></i>
                                     </button>
@@ -108,9 +108,9 @@
                                                     type="number"
                                                     name="qty"
                                                     id="quantity_input"
-                                                    value="{$product.quantity_wanted}"
+                                                    value="{$prdct.quantity_wanted}"
                                                     class="input-group"
-                                                    min="{$product.minimal_quantity}"
+                                                    min="{$prdct.minimal_quantity}"
                                                     data-weeklydeal="true"
                                             />
                                         </div>
