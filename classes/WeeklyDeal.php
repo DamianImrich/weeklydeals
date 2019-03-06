@@ -28,8 +28,8 @@ class WeeklyDeal extends ObjectModel
         'primary' => 'id_weekly_deal',
         'multilang' => false,
         'fields' => array(
-            'active' => array('type' => self::TYPE_BOOL, 'required' => true),
-            'position' => array('type' => self::TYPE_INT, 'required' => true),
+            'active' => array('type' => self::TYPE_BOOL),
+            'position' => array('type' => self::TYPE_INT),
             'product_ids' => array('type' => self::TYPE_STRING, 'required' => true),
             'specific_price_ids' => array('type' => self::TYPE_STRING),
             'discount' => array('type' => self::TYPE_INT, 'required' => true),

@@ -193,7 +193,7 @@ class AdminWeekDealsController extends ModuleAdminController
         return true;
     }
 
-    public function processSave()
+  /*  public function processSave()
     {
         $exp = explode(",", $_POST["product_ids"]);
         $ids = [];
@@ -202,7 +202,7 @@ class AdminWeekDealsController extends ModuleAdminController
         }
         $_POST["product_ids"] = json_encode($ids);
         return $this->processSave();
-    }
+    }*/
 
     public function ajaxProcessUpdatePositions()
     {
