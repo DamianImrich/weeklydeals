@@ -1,0 +1,105 @@
+.weekly-deal-wrapper{
+    overflow: hidden;
+}
+.weekly-deal-wrapper h1{
+    font-size: 4.3rem;
+    padding-top: 3rem;
+}
+
+.weekly-deal-wrapper .subTitle{
+    font-size: 1.4rem;
+    text-align: center;
+}
+.weekly-deal-wrapper .expiresWrapper p#weeklydealCountdown{
+    letter-spacing: 0.05rem;
+    font-size: 6rem;
+}
+.weekly-deal-wrapper .expiresWrapper p{
+    text-align: center;
+}
+.weekly-deal-wrapper .expiresWrapper .expiresTitle{
+    font-size: 2rem;
+    margin: 0;
+}
+.weekly-deal-wrapper .expiresWrapper{
+    padding: 1rem 0 5rem;
+}
+.weekly-deal-wrapper .productWrapper{
+    display: table;
+    margin: 5rem auto 0;
+    position: relative;
+}
+.weekly-deal-wrapper .productWrapper .product-group-price{
+    position: absolute;
+    right: -130px;
+    z-index: 2;
+}
+.weekly-deal-wrapper .productWrapper .product-price-and-shipping .currentPriceWrapper .product-price,
+.weekly-deal-wrapper .productWrapper .product-price-and-shipping .currentPriceWrapper .tax-shipping-delivery-label{
+    display: inline-block;
+}
+.weekly-deal-wrapper .productWrapper .product-price-and-shipping .currentPriceWrapper .tax-shipping-delivery-label{
+    font-size: 2.5rem;
+    margin-left: 13px;
+}
+.weekly-deal-wrapper .productWrapper .product-price-and-shipping .price {
+    font-size: 5rem;
+    display: block;
+    transform-origin: center center;
+    animation: pulse 1s infinite;
+}
+.weekly-deal-wrapper .productWrapper .product-price-and-shipping span{
+    margin-left: 0;
+    text-align: right;
+}
+.weekly-deal-wrapper .productWrapper .product-title{
+    font-size: 3.3rem;
+    text-align: center;
+    letter-spacing: 0.05rem;
+    max-height: inherit
+}
+.weekly-deal-wrapper .productWrapper .discountWrapper .discount-percentage,
+.weekly-deal-wrapper .product-price-and-shipping .regular-price{
+    font-size: 2.2rem;
+    font-weight: normal;
+}
+.weekly-deal-wrapper .productWrapper .discountWrapper .discount-percentage{
+    color: #d80000;
+    margin-left: 30px;
+}
+.weekly-deal-wrapper .productWrapper .discountWrapper .product-discount,
+.weekly-deal-wrapper .productWrapper .discountWrapper .discount-percentage{
+    float: right
+}
+.weekly-deal-wrapper .product-price-and-shipping .regular-price:before{
+    font-size: 9rem;
+    top: -24px;
+    left: -11px;
+    opacity: 0.7;
+}
+
+
+
+
+@keyframes pulsePrice {
+    0%{
+        transform: scale(1.2)
+    }
+    50%{
+        transform: scale(1)
+    }
+    100%{
+        transform: scale(1.2)
+    }
+}
+@keyframes pulseGraphics {
+    0%{
+        transform: scale(1.02)
+    }
+    50%{
+        transform: scale(1)
+    }
+    100%{
+        transform: scale(1.02)
+    }
+}
