@@ -171,7 +171,6 @@ class WeeklyDeals extends Module
 
         if(!$products = $deal->getProducts())
             return false;
-        die(var_dump($products));
 
         $presentedProducts = [];
         foreach($products as $product){
@@ -184,6 +183,7 @@ class WeeklyDeals extends Module
 
             $presentedProducts[]=$p;
         }
+        die(var_dump($presentedProducts));
 
 
         Media::addJsDef([
