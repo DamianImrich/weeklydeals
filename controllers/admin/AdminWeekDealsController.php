@@ -192,7 +192,6 @@ class AdminWeekDealsController extends ModuleAdminController
         return true;
     }
 
-
     public function ajaxProcessUpdatePositions()
     {
         $way = (int)(Tools::getValue('way'));
