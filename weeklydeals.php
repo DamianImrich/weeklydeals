@@ -56,13 +56,15 @@ class WeeklyDeals extends Module
         if(!parent::install())
             return false;
 
+        $this->addTab();
+        $this->installDB();
+
         foreach($this->hooks as $hook){
             if(!$this->registerHook($hook))
                 return false;
         }
 
-        $this->addTab();
-        $this->installDB();
+
         Configuration::set("WeeklyDLS_INSTALLED", true);
 
         return true;
