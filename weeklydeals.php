@@ -149,6 +149,7 @@ class WeeklyDeals extends Module
             return false;
         }
 
+
         $s = mktime(24,0,0) - time();
         $hours = floor($s/60/60);
         $s -= $hours*60*60;
@@ -170,6 +171,7 @@ class WeeklyDeals extends Module
 
         if(!$products = $deal->getProducts())
             return false;
+        die(var_dump($products));
 
         $presentedProducts = [];
         foreach($products as $product){
