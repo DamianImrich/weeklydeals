@@ -71,20 +71,20 @@ class WeeklyDeals extends Module
     {
         $a = Db::getInstance()->execute('
 		CREATE TABLE `'._DB_PREFIX_.'weeklydeals_subscribers` (
-			`id_dd_subscriber` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+			`id_dd_subscriber` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 			`email` varchar(255) COLLATE utf8_slovak_ci NOT NULL,
-            `subscribed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+            `subscribed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			PRIMARY KEY (`id_dd_subscriber`)
 		) DEFAULT CHARSET=utf8;');
 
         $b = Db::getInstance()->execute('
 		CREATE TABLE `'._DB_PREFIX_.'weekly_deals` (
-			`id_weekly_deal` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+			`id_weekly_deal` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 			`active` int(11) NOT NULL,
             `position` int(11) NOT NULL,
             `product_ids` VARCHAR(255) NOT NULL,
             `specific_price_ids` VARCHAR(255) DEFAULT NULL,
-            `discount` int(11) NOT NULL
+            `discount` int(11) NOT NULL,
 			PRIMARY KEY (`id_dd_subscriber`)
 		) DEFAULT CHARSET=utf8;');
 
