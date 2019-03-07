@@ -183,7 +183,7 @@ class WeeklyDeals extends Module
 
             $presentedProducts[]=$p;
         }
-        die(var_dump($presentedProducts));
+       // die(var_dump($presentedProducts));
 
 
         Media::addJsDef([
