@@ -4,6 +4,7 @@
         <p class="subTitle">{l s='Get new cheap deal every day ' mod='weeklydeals'}</p>
 
         {foreach from=$products item=prdct}
+            <h1>|lalala|</h1>
         <div class="productWrapper js-anchor" data-anchor="{$prdct.url}">
             <div class="product-title" itemprop="name"><a href="{$prdct.url}">{$prdct.name|truncate:30:'...'}</a>
             </div>
