@@ -2,17 +2,22 @@
     overflow: hidden;
 }
 .weekly-deal-wrapper h1{
-    font-size: 4.3rem;
-    padding-top: 3rem;
+    font-size: 2.2rem;
+    margin-top: 40px;
+    line-height: 1.1;
 }
 
 .weekly-deal-wrapper .subTitle{
     font-size: 1.4rem;
     text-align: center;
+    margin-top: 10px;
 }
 .weekly-deal-wrapper .expiresWrapper p#weeklydealCountdown{
     letter-spacing: 0.05rem;
-    font-size: 6rem;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0 25px 0;
+    color: #f53939
 }
 .weekly-deal-wrapper .expiresWrapper p{
     text-align: center;
@@ -78,7 +83,9 @@
     opacity: 0.7;
 }
 
-
+.weekly-deal-wrapper .countdownfree{
+    display: none
+}
 
 
 @keyframes pulsePrice {
