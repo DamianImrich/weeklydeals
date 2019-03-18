@@ -134,16 +134,18 @@ class WeeklyDeal extends ObjectModel
     public function deactivate()
     {
         $specificPriceIds = json_decode($this->specific_price_ids);
-        foreach($specificPriceIds as $specificPriceId){
-            $sprice = new SpecificPrice($specificPriceId);
-            if(!$sprice->delete())
-                return false;
-        }
+				if($specificPriceIds){
+					foreach($specificPriceIds as $specificPriceId){
+							$sprice = new SpecificPrice($specificPriceId);
+							if(!$sprice->delete())
+									return false;
+					}
 
-        $this->specific_price_ids = null;
+					$this->specific_price_ids = null;
 
-        if(!$this->update())
-            return false;
+					if(!$this->update())
+							return false;
+				}
 
         return true;
     }
