@@ -170,7 +170,8 @@ class WeeklyDeal extends ObjectModel
 
         foreach($res as $deal){
             $weeklyDeal = new WeeklyDeal($deal["id_weekly_deal"]);
-						$weeklyDeal->deactivate();
+						if($weeklyDeal)
+							$weeklyDeal->deactivate();
         }
 
         return true;
