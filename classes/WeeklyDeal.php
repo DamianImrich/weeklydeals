@@ -193,7 +193,7 @@ class WeeklyDeal extends ObjectModel
     }
 
     public static function refreshWeeklyDeal(){
-				if(Configuration::get(dateKey) != date("W")) {
+				if(Configuration::get("WeeklyDLS_CurrDealWeekNumber") != date("W")) {
 						$deal = WeeklyDeal::getActivatedDeal();
 						$deal->deactivate();
 						$deal->delete();
@@ -203,7 +203,7 @@ class WeeklyDeal extends ObjectModel
 						$nextDeal = WeeklyDeal::getFirstActive();
 						$nextDeal->activate();
 
-						Configuration::updateValue(dateKey, date("W"));
+						Configuration::updateValue("WeeklyDLS_CurrDealWeekNumber", date("W"));
 				} else {
 					self::deactivateDeals();
 
