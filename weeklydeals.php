@@ -150,7 +150,13 @@ class WeeklyDeals extends Module
         }
 
 
-        $s = mktime(24,0,0) - time();
+        $sundayDate = strtotime("Sunday");
+
+        $last_date = strtotime("+ 7 days",$sundayDate);
+
+        $s = $last_date - time();
+        $days = floor($s/60/60/24);
+        $s -= $days*60*60*24;
         $hours = floor($s/60/60);
         $s -= $hours*60*60;
         $minutes = floor($s/60);
@@ -183,12 +189,11 @@ class WeeklyDeals extends Module
 
             $presentedProducts[]=$p;
         }
-       // die(var_dump($presentedProducts));
 
 
         Media::addJsDef([
             "weeklydeal" => [
-                'products' => $presentedProducts,
+                'presentedProducts' => $presentedProducts,
                 'currency' => ['sign' => $ctx->currency->sign]
             ]
         ]);
