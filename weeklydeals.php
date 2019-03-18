@@ -195,7 +195,7 @@ class WeeklyDeals extends Module
 
         global $smarty;
         $smarty->assign("countdown", join(":", [$hours, ($minutes>9) ? $minutes : "0".$minutes, ($s>9) ? $s : "0".$s]));
-        $smarty->assign("products", $presentedProducts);
+        $smarty->assign("presentedProducts", $presentedProducts);
         return true;
     }
 

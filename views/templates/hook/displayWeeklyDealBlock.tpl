@@ -3,8 +3,7 @@
         <h1 class="page-main-title text-center text-white mb-0">{l s='Products of the week' mod='weeklydeals'}</h1>
         <p class="subTitle">{l s='Get new cheap deal every day ' mod='weeklydeals'}</p>
 
-        {foreach from=$products item=prdct}
-            <h1>|lalala|</h1>
+        {foreach from=$presentedProducts item=prdct}
         <div class="productWrapper js-anchor" data-anchor="{$prdct.url}">
             <div class="product-title" itemprop="name"><a href="{$prdct.url}">{$prdct.name|truncate:30:'...'}</a>
             </div>
@@ -76,6 +75,56 @@
             </div>
 
         </div>
+				{block name='product_buy'}
+            <form action="{$urls.pages.cart}" method="post" id="add-to-cart-or-refresh">
+                <input type="hidden" name="token" value="{$static_token}">
+                <input type="hidden" name="id_product" value="{$prdct.id}" id="product_page_product_id">
+                {if isset($prdct.id_customization)}
+                    <input type="hidden" name="id_customization" value="{$prdct.id_customization}"
+                           id="product_customization_id">
+                {/if}
+
+
+                <div class="product-add-to-cart">
+                    {if !$configuration.is_catalog}
+
+                        {block name='product_quantity'}
+                            <div class="product-quantity">
+
+                                <div class="add">
+                                    <button class="btn btn-secondary add-to-cart" data-button-action="add-to-cart"
+                                            type="submit"
+                                            {if !$prdct.add_to_cart_url || $prdct.quantity_wanted > $prdct.quantity}disabled{/if}>
+                                        <span>{l s='Add to cart' d='Shop.Theme.Actions'}</span>
+                                        <i class="icon-boozer_kosik"></i>
+                                    </button>
+
+                                    <div class="qtyWrapper">
+                                        <span class="quantityControls" data-value="-1"><i
+                                                    class="fa fa-minus"></i></span>
+                                        <div class="qty">
+                                            <input
+                                                    type="number"
+                                                    name="qty"
+                                                    id="quantity_input"
+                                                    value="{$prdct.quantity_wanted}"
+                                                    class="input-group"
+                                                    min="{$prdct.minimal_quantity}"
+                                                    data-weeklydeal="true"
+                                            />
+                                        </div>
+                                        <span class="quantityControls" data-value="1"><i class="fa fa-plus"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        {/block}
+                    {/if}
+                </div>
+
+
+            </form>
+        {/block}
         {/foreach}
         {*{block name='product_buy'}
             <form action="{$urls.pages.cart}" method="post" id="add-to-cart-or-refresh">
