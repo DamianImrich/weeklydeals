@@ -196,8 +196,10 @@ class WeeklyDeal extends ObjectModel
     public static function refreshWeeklyDeal(){
 				if(Configuration::get("WeeklyDLS_CurrDealWeekNumber") != date("W")) {
 						$deal = WeeklyDeal::getActivatedDeal();
-						$deal->deactivate();
-						$deal->delete();
+						if($deal){
+							$deal->deactivate();
+							$deal->delete();
+						}
 
 						WeeklyDeal::deactivateDeals();
 
