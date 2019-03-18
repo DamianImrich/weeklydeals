@@ -150,11 +150,15 @@ class WeeklyDeals extends Module
         }
 
 
-        $s = mktime(24,0,0) - time();
-        $hours = floor($s/60/60);
-        $s -= $hours*60*60;
-        $minutes = floor($s/60);
-        $s -= $minutes*60-1;
+
+        $last_date = strtotime("+ 7 days",strtotime("Monday"));
+				
+				$rem = $last_date - time();
+				$day = floor($rem / 86400);
+				$hr  = floor(($rem % 86400) / 3600);
+				$min = floor(($rem % 3600) / 60);
+				$sec = ($rem % 60);	
+     
 
         $assembler = new ProductAssembler(Context::getContext());
         $presenterFactory = new ProductPresenterFactory(Context::getContext());
@@ -183,18 +187,17 @@ class WeeklyDeals extends Module
 
             $presentedProducts[]=$p;
         }
-       // die(var_dump($presentedProducts));
 
 
         Media::addJsDef([
             "weeklydeal" => [
-                'products' => $presentedProducts,
+                'presentedProducts' => $presentedProducts,
                 'currency' => ['sign' => $ctx->currency->sign]
             ]
         ]);
 
         global $smarty;
-        $smarty->assign("countdown", join(":", [$hours, ($minutes>9) ? $minutes : "0".$minutes, ($s>9) ? $s : "0".$s]));
+        $smarty->assign("countdown", join(":", [$day,sprintf("%02d", $hr), sprintf("%02d", $min),sprintf("%02d", $sec)]));
         $smarty->assign("presentedProducts", $presentedProducts);
         return true;
     }

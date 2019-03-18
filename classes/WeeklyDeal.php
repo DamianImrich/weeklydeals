@@ -94,7 +94,7 @@ class WeeklyDeal extends ObjectModel
         $shopID = Context::getContext()->shop->id;
         $reduction = $this->discount/100;
 
-        $this->specific_price_ids = [];
+        $specific_price_ids = [];
         foreach($productIds as $i => $productId){
             $sPrice = new SpecificPrice;
             $sPrice->id_product = $productId;
@@ -112,12 +112,18 @@ class WeeklyDeal extends ObjectModel
             $sPrice->price = -1;
             $sPrice->reduction_tax = 1;
             $sPrice->reduction_type = "percentage";
-            $sPrice->from = (new DateTime('now'))->format('Y-m-d')." 00:00:00";
-            $sPrice->to = (new DateTime('+1 week'))->format('Y-m-d')." 00:00:00";
+
+            $sPrice->from = (new DateTime('Monday'))->format('Y-m-d')." 00:00:00";
+            $sPrice->to = (new DateTime('+ 7 days'))->format('Y-m-d')." 00:00:00";
+
             if(!$sPrice->add())
                 return false;
-            $this->specific_price_ids[] = $sPrice->id;
+								
+
+            $specific_price_ids[] = $sPrice->id;
         }
+				
+				$this->specific_price_ids = json_encode($specific_price_ids);
 
         if(!$this->update())
             return false;
@@ -127,9 +133,6 @@ class WeeklyDeal extends ObjectModel
 
     public function deactivate()
     {
-        if($this->id_specific_price == null)
-            return false;
-
         $specificPriceIds = json_decode($this->specific_price_ids);
         foreach($specificPriceIds as $specificPriceId){
             $sprice = new SpecificPrice($specificPriceId);
@@ -139,7 +142,7 @@ class WeeklyDeal extends ObjectModel
 
         $this->specific_price_ids = null;
 
-        if(!$this->update(true))
+        if(!$this->update())
             return false;
 
         return true;
@@ -161,12 +164,13 @@ class WeeklyDeal extends ObjectModel
 
     public static function deactivateDeals()
     {
-        if(!$res = Db::getInstance()->executeS('SELECT id_weekly_deal, specific_price_ids, position FROM '._DB_PREFIX_ . self::$definition["table"].' WHERE specific_price_ids IS NOT NULL ORDER BY position ASC'))
+        if(!$res = Db::getInstance()->executeS('SELECT id_weekly_deal, specific_price_ids, position FROM '._DB_PREFIX_ . self::$definition["table"].' ORDER BY position ASC'))
             return false;
+				//die(var_dump($res));
 
         foreach($res as $deal){
             $weeklyDeal = new WeeklyDeal($deal["id_weekly_deal"]);
-            $weeklyDeal->deactivate();
+						$weeklyDeal->deactivate();
         }
 
         return true;
@@ -174,7 +178,7 @@ class WeeklyDeal extends ObjectModel
 
     public static function getActivatedDeal()
     {
-        if(!$res = Db::getInstance()->executeS('SELECT id_weekly_deal, specific_price_ids, position FROM '._DB_PREFIX_ . self::$definition["table"].' WHERE specific_price_ids IS NOT NULL AND active = 1 ORDER BY position ASC LIMIT 1'))
+        if(!$res = Db::getInstance()->executeS('SELECT id_weekly_deal, specific_price_ids, position FROM '._DB_PREFIX_ . self::$definition["table"].' WHERE specific_price_ids IS NOT NULL and specific_price_ids != "" AND active = 1 ORDER BY position ASC LIMIT 1'))
             return false;
 
         return (isset($res[0])) ? new WeeklyDeal($res[0]["id_weekly_deal"]) : null;
@@ -189,17 +193,24 @@ class WeeklyDeal extends ObjectModel
     }
 
     public static function refreshWeeklyDeal(){
-        $currentDeal = self::getActivatedDeal();
-        $firstDeal = self::getFirstActive();
+				if(Configuration::get(dateKey) != date("W")) {
+						$deal = WeeklyDeal::getActivatedDeal();
+						$deal->deactivate();
+						$deal->delete();
 
-        if(!$currentDeal){
-            self::deactivateDeals();
-            if($firstDeal)
-                $firstDeal->activate();
-        } else if($currentDeal->id != $firstDeal->id){
-            $currentDeal->deactivate();
-            if($firstDeal)
-               $firstDeal->activate();
-        }
+						WeeklyDeal::deactivateDeals();
+
+						$nextDeal = WeeklyDeal::getFirstActive();
+						$nextDeal->activate();
+
+						Configuration::updateValue(dateKey, date("W"));
+				} else {
+					self::deactivateDeals();
+
+					$firstDeal = self::getFirstActive();
+				
+					if($firstDeal)
+						$firstDeal->activate();
+				}
     }
 }
