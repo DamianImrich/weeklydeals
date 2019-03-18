@@ -27,7 +27,7 @@
     margin: 0;
 }
 .weekly-deal-wrapper .expiresWrapper{
-    padding: 1rem 0 5rem;
+    padding: 1rem 0;
 }
 .weekly-deal-wrapper .productWrapper{
     display: table;
