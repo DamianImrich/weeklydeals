@@ -113,8 +113,8 @@ class WeeklyDeal extends ObjectModel
             $sPrice->reduction_tax = 1;
             $sPrice->reduction_type = "percentage";
 
-            $sPrice->from = (new DateTime('Monday'))->format('Y-m-d')." 00:00:00";
-            $sPrice->to = (new DateTime('+ 7 days'))->format('Y-m-d')." 00:00:00";
+            $sPrice->from = (new DateTime('Monday this week'))->format('Y-m-d')." 00:00:00";
+            $sPrice->to = (new DateTime('Monday this week + 7 days'))->format('Y-m-d')." 00:00:00";
 
             if(!$sPrice->add())
                 return false;

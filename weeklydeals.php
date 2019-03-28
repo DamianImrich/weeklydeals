@@ -151,7 +151,7 @@ class WeeklyDeals extends Module
 
 
 
-        $last_date = strtotime("+ 7 days",strtotime("Monday"));
+        $last_date = strtotime("+ 7 days",strtotime("Monday this week"));
 				
 				$rem = $last_date - time();
 				$day = floor($rem / 86400);
