@@ -96,6 +96,14 @@ class WeeklyDeal extends ObjectModel
 
         $specific_price_ids = [];
         foreach($productIds as $i => $productId){
+            $productReduction = $reduction;
+
+            $idSale = explode(":", $productId);
+            if(count($idSale) > 1){
+                $productId = $idSale[0];
+                $productReduction = floatval($idSale[1])/100;
+            }
+
             $sPrice = new SpecificPrice;
             $sPrice->id_product = $productId;
             $sPrice->id_shop = $shopID;
@@ -108,7 +116,7 @@ class WeeklyDeal extends ObjectModel
             $sPrice->id_customer = 0;
             $sPrice->id_product_attribute = 0;
             $sPrice->from_quantity = 1;
-            $sPrice->reduction = $reduction;
+            $sPrice->reduction = $productReduction;
             $sPrice->price = -1;
             $sPrice->reduction_tax = 1;
             $sPrice->reduction_type = "percentage";
