@@ -121,7 +121,7 @@ class WeeklyDeal extends ObjectModel
             if(count($idSale) > 1){
                 $sPrice->id_product = $idSale[0];
                 $sPrice->reduction = floatval($idSale[1])/100;
-                die(var_dump($idSale));
+                die(var_dump(floatval($idSale[1])));
             }
 
             if(!$sPrice->add())
