@@ -163,9 +163,9 @@ class WeeklyDeal extends ObjectModel
         $exp = explode(",", $this->product_ids);
         $productIds = [];
         foreach($exp as $id){
-            $productIds[] = trim($id);
+            $productIds[] = trim(explode(":", $id)[0]);
         }
-        //die(var_dump($productIds));
+
         if(!$res = Db::getInstance()->executeS('SELECT * FROM '._DB_PREFIX_ .'product WHERE id_product IN ('.implode(",", $productIds).")"))
             return false;
 
