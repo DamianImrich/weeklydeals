@@ -96,13 +96,6 @@ class WeeklyDeal extends ObjectModel
 
         $specific_price_ids = [];
         foreach($productIds as $i => $productId){
-            $productReduction = $reduction;
-
-            $idSale = explode(":", $productId);
-            if(count($idSale) > 1){
-                $productId = $idSale[0];
-                $productReduction = floatval($idSale[1])/100;
-            }
 
             $sPrice = new SpecificPrice;
             $sPrice->id_product = $productId;
@@ -116,13 +109,19 @@ class WeeklyDeal extends ObjectModel
             $sPrice->id_customer = 0;
             $sPrice->id_product_attribute = 0;
             $sPrice->from_quantity = 1;
-            $sPrice->reduction = $productReduction;
+            $sPrice->reduction = $reduction;
             $sPrice->price = -1;
             $sPrice->reduction_tax = 1;
             $sPrice->reduction_type = "percentage";
 
             $sPrice->from = (new DateTime('Monday this week'))->format('Y-m-d')." 00:00:00";
             $sPrice->to = (new DateTime('Monday this week + 7 days'))->format('Y-m-d')." 00:00:00";
+
+            $idSale = explode(":", $productId);
+            if(count($idSale) > 1){
+                $sPrice->id_product = $idSale[0];
+                $sPrice->reduction = floatval($idSale[1])/100;
+            }
 
             if(!$sPrice->add())
                 return false;
@@ -131,7 +130,7 @@ class WeeklyDeal extends ObjectModel
             $specific_price_ids[] = $sPrice->id;
         }
 				
-				$this->specific_price_ids = json_encode($specific_price_ids);
+		$this->specific_price_ids = json_encode($specific_price_ids);
 
         if(!$this->update())
             return false;
