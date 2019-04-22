@@ -121,7 +121,6 @@ class WeeklyDeal extends ObjectModel
             if(count($idSale) > 1){
                 $sPrice->id_product = $idSale[0];
                 $sPrice->reduction = floatval($idSale[1])/100;
-                die(var_dump(floatval($idSale[1])));
             }
 
             if(!$sPrice->add())
@@ -163,9 +162,9 @@ class WeeklyDeal extends ObjectModel
         $exp = explode(",", $this->product_ids);
         $productIds = [];
         foreach($exp as $id){
-            $productIds[] = trim($id);
+            $productIds[] = trim(explode(":", $id)[0]);
         }
-        //die(var_dump($productIds));
+
         if(!$res = Db::getInstance()->executeS('SELECT * FROM '._DB_PREFIX_ .'product WHERE id_product IN ('.implode(",", $productIds).")"))
             return false;
 
