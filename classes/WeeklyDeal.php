@@ -118,10 +118,10 @@ class WeeklyDeal extends ObjectModel
             $sPrice->to = (new DateTime('Monday this week + 7 days'))->format('Y-m-d')." 00:00:00";
 
             $idSale = explode(":", $productId);
+
             if(count($idSale) > 1){
                 $sPrice->id_product = $idSale[0];
                 $sPrice->reduction = floatval($idSale[1])/100;
-                die(var_dump(floatval($idSale[1])));
             }
 
             if(!$sPrice->add())
