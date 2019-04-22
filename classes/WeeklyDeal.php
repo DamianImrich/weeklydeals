@@ -119,7 +119,7 @@ class WeeklyDeal extends ObjectModel
 
             $idSale = explode(":", $productId);
             if(count($idSale) > 1){
-                $sPrice->id_product = $idSale[0];
+                $sPrice->id_product = trim($idSale[0]);
                 $sPrice->reduction = floatval($idSale[1])/100;
             }
 
