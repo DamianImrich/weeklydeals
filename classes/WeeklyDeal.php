@@ -96,7 +96,6 @@ class WeeklyDeal extends ObjectModel
 
         $specific_price_ids = [];
         foreach($productIds as $i => $productId){
-
             $sPrice = new SpecificPrice;
             $sPrice->id_product = $productId;
             $sPrice->id_shop = $shopID;
@@ -127,16 +126,10 @@ class WeeklyDeal extends ObjectModel
             if(!$sPrice->add())
                 return false;
 								
-
             $specific_price_ids[] = $sPrice->id;
         }
-				
-		$this->specific_price_ids = json_encode($specific_price_ids);
-
-        if(!$this->update())
-            return false;
-
-        return true;
+				$this->specific_price_ids = json_encode($specific_price_ids);
+        return $this->update();
     }
 
     public function deactivate()
@@ -205,6 +198,7 @@ class WeeklyDeal extends ObjectModel
 
     public static function refreshWeeklyDeal(){
 				if(Configuration::get("WeeklyDLS_CurrDealWeekNumber") != date("W")) {
+
 						$deal = WeeklyDeal::getActivatedDeal();
 						if($deal){
 							$deal->deactivate();
@@ -221,7 +215,7 @@ class WeeklyDeal extends ObjectModel
 					self::deactivateDeals();
 
 					$firstDeal = self::getFirstActive();
-				
+
 					if($firstDeal)
 						$firstDeal->activate();
 				}

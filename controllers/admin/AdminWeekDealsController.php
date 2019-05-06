@@ -121,11 +121,13 @@ class AdminWeekDealsController extends ModuleAdminController
                     'label' => $this->l('Product IDs'),
                     'name' => 'product_ids',
                     'maxlength' => 255,
-                    'required' => true
+                    'required' => true,
+										'hint' => "ID's of products separated by comma",
+                    'desc' => 'Each product can have different discount by adding colon and discount after product id.<br><br>Example: 333 : 2.5, 963 , 9999:5<br>Product 333 will have 2.5% discount, 963 will have default discount defined bellow and product with id 9999 will have 5% discount'
                 ),
                 array(
                     'type' => 'text',
-                    'label' => $this->l('Discount ( % )'),
+                    'label' => $this->l('Default Discount ( % )'),
                     'name' => 'discount',
                     'required' => true,
                     'maxlength' => 2,
@@ -148,7 +150,7 @@ class AdminWeekDealsController extends ModuleAdminController
                             'label' => $this->trans('Disabled', array(), 'Admin.Global')
                         )
                     ),
-                    'hint' => $this->trans('Zobraziť na webe.')
+                    'hint' => $this->trans('It is eligible for public?')
                 )
             )
         );
