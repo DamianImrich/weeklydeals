@@ -123,12 +123,12 @@ class WeeklyDeal extends ObjectModel
                 $sPrice->reduction = floatval($idSale[1])/100;
             }
 
-            if(!$sPrice->add())
-                return false;
-								
+	    $sPrice->add();
+
             $specific_price_ids[] = $sPrice->id;
         }
-				$this->specific_price_ids = json_encode($specific_price_ids);
+
+	$this->specific_price_ids = json_encode($specific_price_ids);
         return $this->update();
     }
 
@@ -215,7 +215,6 @@ class WeeklyDeal extends ObjectModel
 					self::deactivateDeals();
 
 					$firstDeal = self::getFirstActive();
-
 					if($firstDeal)
 						$firstDeal->activate();
 				}
